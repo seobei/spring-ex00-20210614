@@ -21,7 +21,7 @@ import lombok.Setter;
 @Controller
 public class HomeController {
 	
-	@Setter(onMethod_= @Autowired)
+	@Setter(onMethod_ = @Autowired)
 	private Chef chef;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -32,6 +32,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info(chef.toString());
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
