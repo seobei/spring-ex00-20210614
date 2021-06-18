@@ -1,4 +1,4 @@
-package org.zerock.controller.lecture;
+package org.zerock.controller.lecture.domain;
 
 import java.util.List;
 
