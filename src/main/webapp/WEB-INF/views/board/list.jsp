@@ -53,10 +53,18 @@
 <script>
 $(document).ready(function() {
 	
-	if (history.state == null) {		
+	
+	if (history.state == null) {
+		console.log("어서와 처음이지!!!");
+		
 		$("#board-modal1").modal('show');
 		history.replaceState({}, null);
+		
+	} else {
+		
+		console.log("너 전에 왔었어!!!!");
 	}
+	
 });
 </script>
 
