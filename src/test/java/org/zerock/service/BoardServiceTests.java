@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -47,10 +48,13 @@ public class BoardServiceTests {
 	
 	@Test
 	public void testGetList() {
-		List<BoardVO> list = service.getList();
+		Criteria cri = new Criteria(2, 5);
+		
+		List<BoardVO> list = service.getList(cri);
 		
 		assertNotNull(list);
 		assertTrue(list.size() > 0);
+		assertEquals(5, list.size());
 	}
 	
 	@Test
@@ -60,11 +64,11 @@ public class BoardServiceTests {
 		assertEquals(1L, vo.getBno());
 	}
 	
+	
 	@Test
 	public void testModify() {
 		String title = "수정된 제목";
 		String content = "수정된 본문";
-		
 		
 		BoardVO vo = service.get(1L);
 		vo.setTitle(title);
@@ -79,10 +83,13 @@ public class BoardServiceTests {
 	}
 	
 	
+	@Test
 	public void testRemove() {
 		Long key1 = 13L;
+//		Long key2 = 14L;
 		
 		assertFalse(service.remove(key1));
+//		assertTrue(service.remove(key2));
 		
 		/* 하나 입력 후 삭제 */
 		BoardVO vo = new BoardVO();
