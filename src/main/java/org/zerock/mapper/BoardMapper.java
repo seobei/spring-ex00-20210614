@@ -33,8 +33,8 @@ public interface BoardMapper {
 	public int delete(long bno);
 	
 	public int update(BoardVO board);
-	
-	public List<BoardVO> getList(Criteria cri);
+
+	public int getTotalCount(Criteria cri);
 }
 
 

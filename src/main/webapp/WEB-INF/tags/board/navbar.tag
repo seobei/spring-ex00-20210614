@@ -3,25 +3,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:url value="/board/list" var="listUrl">
-	<c:if test="${not empty pageMaker }" >
-		<c:param name="pageNum" value="${pageMaker.cri.pageNum }"></c:param>
-		<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
-	</c:if>
-	<c:if test="${not empty cri }">
 		<c:param name="pageNum" value="${cri.pageNum }"></c:param>
 		<c:param name="amount" value="${cri.amount }"></c:param>
-	</c:if>
 </c:url>
 
 <c:url value="/board/register" var="registerUrl">
-	<c:if test="${not empty pageMaker }" >
-		<c:param name="pageNum" value="${pageMaker.cri.pageNum }"></c:param>
-		<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
-	</c:if>
-	<c:if test="${not empty cri }">
 		<c:param name="pageNum" value="${cri.pageNum }"></c:param>
 		<c:param name="amount" value="${cri.amount }"></c:param>
-	</c:if>
 </c:url>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -40,4 +28,27 @@
       </li>
     </ul>
   </div>
+  
+  <form action="${listUrl }" method="get" class="form-inline">
+  	<select name="type" class="form-control mr-sm-2">
+  		<option value="">--</option>
+  		<option value="T">제목</option>
+  		<option value="C">내용</option>
+  		<option value="W">작성자</option>
+  		<option value="TC">제목 or 내용</option>
+  		<option value="TW">제목 or 작성자</option>
+  		<option value="TWC">제목 or 내용 or 작성자</option>
+  	</select>
+  
+    <input name="keyword" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    
+    <input type="hidden" name="pageNum" value="${cri.pageNum }">
+    <input type="hidden" name="amount" value="${cri.amount }">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
 </nav>
+
+
+
+
+
