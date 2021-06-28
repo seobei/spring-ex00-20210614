@@ -32,15 +32,17 @@
 				<div class="form-group">
 					<label for="input2">작성자</label>
 					<input readonly="readonly" id="input2" class="form-control" name="writer" value="${board.writer }">
-				</div>	
+				</div>				
 				
 				<c:url value="/board/modify" var="modifyUrl">
 					<c:param name="bno" value="${board.bno }" />
 					<c:param name="pageNum" value="${cri.pageNum }" />
 					<c:param name="amount" value="${cri.amount }" />
+					<c:param name="type" value="${cri.type }"/>
+					<c:param name="keyword" value="${cri.keyword }" />
 				</c:url>
 				
-				<a class="btn btn-secondary" href="${modifyUrl }">수정/삭제</a>			
+				<a class="btn btn-secondary" href="${modifyUrl }">수정/삭제</a>
 			</form>
 		</div>
 	</div>

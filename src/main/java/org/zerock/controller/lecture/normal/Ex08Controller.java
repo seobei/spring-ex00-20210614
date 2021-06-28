@@ -1,4 +1,4 @@
-package org.zerock.controller.lecture.domain;
+package org.zerock.controller.lecture.normal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,16 +81,20 @@ public class Ex08Controller {
 		model.addAttribute("hello world");
 		return "ex08/sub02";
 	}
-
+	
+	// http://localhost:8080/controller/ex08/sub08?id=pari&age=2000
 	@RequestMapping("/sub08")
 	public String method08(User user) {
+		
 		log.info("ex08, sub08 method");
 		
 		return "ex08/sub02";
 	}
 	
+	
+	// http://localhost:8080/controller/ex08/sub09?age=999&name=korea
 	@RequestMapping("/sub09")
-	public void method09(@ModelAttribute("age") int age, 
+	public void method09(@ModelAttribute("age") int age,
 			@ModelAttribute("name") String name) {
 		log.info("ex08, sub09 method");
 		
@@ -99,6 +103,7 @@ public class Ex08Controller {
 		
 	}
 	
+
 }
 
 

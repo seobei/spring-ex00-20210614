@@ -1,7 +1,8 @@
-package org.zerock.controller.lecture.domain;
+package org.zerock.controller.lecture.normal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.zerock.controller.lecture.domain.User;
 
 import lombok.extern.log4j.Log4j;
 

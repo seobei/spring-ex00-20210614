@@ -1,4 +1,4 @@
-package org.zerock.controller.lecture.domain;
+package org.zerock.controller.lecture.normal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +41,8 @@ public class Ex06Controller {
 	@RequestMapping("/sub04")
 	public String method04() {
 		log.info("ex06, sub04 method");
+		
+		// response.sendRedirect(request.getContextPath() + "/ex06/sub02");
 		
 		return "redirect:/ex06/sub02";
 	}
