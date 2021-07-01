@@ -5,6 +5,26 @@
   
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
+	<sql id="criteria">
+     <where>
+	     <foreach item="type" separator="OR" collection="typeArr">
+	     	<choose>
+	     		<when test='type == "T"'>
+	     			b.title LIKE CONCAT('%', #{keyword}, '%')
+	     		</when>
+	     		<when test='type == "W"'>
+	     			b.writer LIKE CONCAT('%', #{keyword}, '%')
+	     		</when>
+	     		<when test='type == "C"'>
+	     			b.content LIKE CONCAT('%', #{keyword}, '%')
+	     		</when>
+	     	</choose>
+	     </foreach>
+     </where>	
+	</sql>
+
+
+
   <select id="getList" resultType="org.zerock.domain.BoardVO">
     
     <![CDATA[
@@ -28,36 +48,25 @@
   <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
 
     SELECT 
-    	bno bno,
-    	title title,
-    	content content,
-    	writer writer,
-    	regdate regdate,
-    	updatedate updateDate
-     FROM tbl_board
-     <where>
-	     <foreach item="type" separator="OR" collection="typeArr">
-	     	<choose>
-	     		<when test='type == "T"'>
-	     			title LIKE CONCAT('%', #{keyword}, '%')
-	     		</when>
-	     		<when test='type == "W"'>
-	     			writer LIKE CONCAT('%', #{keyword}, '%')
-	     		</when>
-	     		<when test='type == "C"'>
-	     			content LIKE CONCAT('%', #{keyword}, '%')
-	     		</when>
-	     	</choose>
-	     </foreach>
-     </where>
+    	b.bno bno,
+    	b.title title,
+    	b.content content,
+    	b.writer writer,
+    	b.regdate regdate,
+    	b.updatedate updateDate,
+    	count(r.rno) replyCnt
+     FROM tbl_board b LEFT JOIN tbl_reply r ON b.bno = r.bno
 
-     ORDER BY bno DESC
+	<include refid="criteria"></include>
+	 GROUP BY b.bno
+     ORDER BY b.bno DESC
      LIMIT #{from}, #{amount}
 
   </select>
   
   <select id="getTotalCount" resultType="int">
-  SELECT COUNT(*) FROM tbl_board
+  SELECT COUNT(*) FROM tbl_board b
+  <include refid="criteria"></include>
   </select>
   
   <insert id="insert">

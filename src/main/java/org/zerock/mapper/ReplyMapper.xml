@@ -51,13 +51,18 @@ WHERE rno = #{rno}
 		replyer replyer,
 		replyDate replyDate,
 		updateDate updateDate
-	FROM
-		tbl_reply
+	FROM 
+	    tbl_reply
 	WHERE
-		bno = #{bno}
+	    bno = #{bno}
 	ORDER BY rno ASC
 
 </select>
+
+<select id="getCountByBno" resultType="int">
+SELECT COUNT(*) FROM tbl_reply WHERE bno = #{bno}
+</select>
+
 </mapper>
 
 
