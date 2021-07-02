@@ -44,6 +44,7 @@ public class BoardServiceImpl implements BoardService {
 	public boolean remove(Long bno) {
 		// 댓글 삭제
 		replyMapper.deleteByBno(bno);
+		
 		// 게시물 삭제
 		int cnt = mapper.delete(bno);
 		
