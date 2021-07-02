@@ -49,7 +49,7 @@ public class ReplyMapperTests {
 	public void testRead() {
 		ReplyVO vo = mapper.read(1L);
 		
-		assertEquals("댓글!", vo.getReply());
+		assertEquals("댓글!sd", vo.getReply());
 	}
 	
 	@Test
@@ -97,6 +97,13 @@ public class ReplyMapperTests {
 		assertTrue(list.size() == 0);
 		
 		
+	}
+	
+	@Test
+	public void testDeleteByBno() {
+		Long bno = 48L;
+		
+		mapper.deleteByBno(bno);
 	}
 
 }
