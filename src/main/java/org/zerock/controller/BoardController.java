@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,13 +50,14 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String register(BoardVO board, 
 			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
-			
+		
 		board.setFileName(file.getOriginalFilename());
 		
 		// service에게 등록업무 시키고
-		service.register(board,file); // title, content, writer
+		service.register(board, file); // title, content, writer
 		
 		// redirect목적지로 정보 전달
 		rttr.addFlashAttribute("result", board.getBno());
@@ -82,7 +84,10 @@ public class BoardController {
 	}
 
 	@PostMapping("/modify")
-	public String modify(BoardVO board, Criteria cri, @RequestParam("file")MultipartFile file , RedirectAttributes rttr) {
+	@PreAuthorize("principal.username == #board.writer") // 720 쪽
+//	@PreAuthorize("authication.name == #board.writer") // spring.io
+	public String modify(BoardVO board, Criteria cri, 
+			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
 		// request parameter 수집
 		
 		// service 일 시킴
@@ -105,8 +110,9 @@ public class BoardController {
 	}
 	
 	@PostMapping("/remove")
+	@PreAuthorize("principal.username == #writer") // 720 쪽
 	public String remove(@RequestParam("bno") Long bno,
-			Criteria cri, RedirectAttributes rttr) {
+			Criteria cri, RedirectAttributes rttr, String writer) {
 		// parameter 수집
 		
 		// service 일
@@ -128,6 +134,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/register")
+	@PreAuthorize("isAuthenticated()") // 673쪽
 	public void register(@ModelAttribute("cri") Criteria cri) {
 		// forward /WEB-INF/views/board/register.jsp
 	}
