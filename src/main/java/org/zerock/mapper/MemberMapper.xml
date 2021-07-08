@@ -5,11 +5,31 @@
   
 <mapper namespace="org.zerock.mapper.MemberMapper">
 
+	<delete id="removeAuth">
+	DELETE FROM tbl_member_auth
+	WHERE userid = #{userid}
+	</delete>
+
+	<delete id="remove">
+	DELETE FROM tbl_member
+	WHERE userid = #{userid}
+	</delete>
+
+  <update id="update">
+  UPDATE tbl_member
+  SET userpw = #{userpw},
+      userName = #{userName},
+      updatedate = now()
+  WHERE
+      userid = #{userid}
+  
+  </update>
+
   <insert id="insert">
   	INSERT INTO tbl_member
   	(userid, userpw, username)
   	VALUES 
-  	(#{userid}, #{userpw}, #{username})
+  	(#{userid}, #{userpw}, #{userName})
   </insert>
   
   <insert id="insertAuth">
@@ -19,28 +39,31 @@
   	(#{userid}, #{auth})
   </insert>
   
+  
   <select id="read" resultMap="memberMap">
-  SELECT
-  	m.userid userid,
-  	m.userpw userpw,
-  	m.username username,
-  	m.enabled enabled,
-  	m.regdate regdate,
-  	m.updateDate updateDate,
-  	a.auth auth
-  FROM
-  	tbl_member m LEFT JOIN tbl_member_auth a ON m.userid = a.userid
+  SELECT 
+	m.userid userid,
+	m.userpw userpw,
+	m.username username,
+	m.enabled enabled,
+	m.regdate regdate,
+	m.updateDate updateDate,
+	a.auth auth
+  FROM 
+    tbl_member m LEFT JOIN tbl_member_auth a ON m.userid = a.userid
   WHERE
-  	m.userid = #{userid}
+    m.userid = #{userid}
+  
   </select>
   
+  <!-- 책 662쪽 -->
   <resultMap type="org.zerock.domain.MemberVO" id="memberMap">
   	<id property="userid" column="userid" />
   	<result property="userpw" column="userpw" />
-  	<result property="userName" column="userName" />
+  	<result property="userName" column="username" />
   	<result property="regdate" column="regdate" />
   	<result property="updateDate" column="updateDate" />
-  	<result property="enabled" column="enabled"/>
+  	<result property="enabled" column="enabled" />
   	<collection property="authList" resultMap="authMap" />
   </resultMap>
   <resultMap type="org.zerock.domain.AuthVO" id="authMap">
@@ -49,5 +72,19 @@
   </resultMap>
   
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
